@@ -1,0 +1,11 @@
+@R2
+(LOOP)
+D=A
+@R3
+D=D+A
+@R0
+
+(END)
+@LOOP
+M=D
+@END
