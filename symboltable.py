@@ -13,6 +13,10 @@ class SymbolTable:
                                          'R12':12, 'R13':13, 'R14':14, 'R15':15, 'SCREEN':16384,
                                          'KBD':24576, 'SP':0, 'LCL':1, 'ARG':2, 'THIS':3, 'THAT':4,}
         
+    
+    def get_simple_symbol(self, line):
+        return line[1:]
+    
     def get_predefined_symbol(self, line):
         return self.predefined_symbols_table[self.clean_variable(line)]
     
@@ -21,6 +25,11 @@ class SymbolTable:
     
     def get_variable(self, line):
         return self.variables_table[self.clean_variable(line)]
+    
+    def is_simple_symbol(self, line):
+        if line[1:].isnumeric():
+            return True
+        return False
     
     def in_predefined_table(self, line):
         if self.clean_variable(line) in self.predefined_symbols_table:
@@ -39,7 +48,7 @@ class SymbolTable:
     
     def add_to_labels(self, line, addr):
         label = self.clean_label(line)
-        self.labels_table[label] = addr + 1
+        self.labels_table[label] = addr 
         
     def clean_label(self, line):
         return line[1:-1]

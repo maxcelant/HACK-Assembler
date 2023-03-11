@@ -22,7 +22,8 @@ class ASMParser:
     def first_pass(self):
         line_count = 0
         for line in self.file_content:
-            if line.isspace(): continue
+            if self.is_comment(line) or line.isspace():
+                continue
             line = self.strip_whitespace(line)
             if self.is_labelled_symbol(line):
                 self.symbol_table.add_to_labels(line, line_count)
@@ -66,7 +67,8 @@ class ASMParser:
         return line.strip()
     
     def is_labelled_symbol(self, line):
-        if line[0] == "(": return True
+        if line[0] == "(": 
+            return True
         return False
     
     def translate_instruction(self, line):
@@ -84,7 +86,9 @@ class ASMParser:
         # We want to find it or create it, then return it
         # so that it can be translated
         symbol = None
-        if self.symbol_table.in_predefined_table(line):
+        if self.symbol_table.is_simple_symbol(line):
+            symbol = self.symbol_table.get_simple_symbol(line)
+        elif self.symbol_table.in_predefined_table(line):
             symbol = self.symbol_table.get_predefined_symbol(line)
         elif self.symbol_table.in_labelled_symbols(line):
             symbol = self.symbol_table.get_labelled_symbol(line)
