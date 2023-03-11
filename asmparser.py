@@ -32,7 +32,7 @@ class ASMParser:
                 
                 
     def second_pass(self):
-        f = open('out.txt', 'a')
+        f = open('Pong.hack', 'a')
         f.truncate(0) # Clear the file
         for line in self.file_content:
             if self.is_ignorable_line(line):

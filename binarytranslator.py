@@ -68,10 +68,7 @@ class BinaryTranslator:
             return binary
         if symbol[1] == ';': 
             symbols = symbol.split(';')
-            if symbols[0] == '0':
-                dest = self.dest_bits['']
-            else:
-                dest = self.dest_bits[symbols[0]]
+            dest = self.dest_bits['']
             comp = self.comp_bits[symbols[0]]                  # TODO: May need to change
             jump = self.jump_bits[symbols[1]]
             binary = '111' + comp + dest + jump
